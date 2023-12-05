@@ -1,0 +1,58 @@
+CREATE TABLE Bien (
+    Id_bien                        VARCHAR NOT NULL,
+    No_voie                        VARCHAR NOT NULL,
+    Type_voie                      VARCHAR NOT NULL,
+    Voie                           VARCHAR NOT NULL,
+    Total_piece                    INTEGER NOT NULL,
+    Surface_carrez                 INTEGER NOT NULL,
+    Surface_local                  INTEGER NOT NULL,
+    Type_local                     VARCHAR NOT NULL,
+    Commune_Id_codedep_codecommune VARCHAR NOT NULL,
+    CONSTRAINT Id_bien PRIMARY KEY (
+        Id_bien
+    ),
+    FOREIGN KEY (
+        Commune_Id_codedep_codecommune
+    )
+    REFERENCES Commune (Id_codedep_codecommune) 
+);
+CREATE TABLE Commune (
+    Id_codedep_codecommune VARCHAR NOT NULL,
+    code_dep               VARCHAR NOT NULL,
+    code_commune           VARCHAR NOT NULL,
+    nom_commune            VARCHAR NOT NULL,
+    region_Id_region       VARCHAR NOT NULL
+                                   REFERENCES Region (Id_region),
+    CONSTRAINT Id_codedep_codecommune PRIMARY KEY (
+        Id_codedep_codecommune
+    ),
+    FOREIGN KEY (
+        region_Id_region
+    )
+    REFERENCES Region (Id_region) MATCH [FULL]
+);
+CREATE TABLE Population (
+    Id_population    VARCHAR NOT NULL
+                             PRIMARY KEY,
+    nombre_dhabitant INTEGER,
+    FOREIGN KEY (
+        Id_population
+    )
+    REFERENCES Commune (Id_codedep_codecommune) 
+);
+CREATE TABLE Region (
+    Id_region      VARCHAR NOT NULL,
+    regroup_region VARCHAR NOT NULL,
+    nom_region     VARCHAR NOT NULL,
+    CONSTRAINT Id_region PRIMARY KEY (
+        Id_region
+    )
+);
+CREATE TABLE Vente (
+    Id_vente   VARCHAR NOT NULL,
+    date_vente DATE    NOT NULL,
+    Valeur     INT     NOT NULL,
+    CONSTRAINT Id_vente PRIMARY KEY (
+        Id_vente
+    )
+);

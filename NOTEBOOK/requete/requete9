@@ -1,0 +1,10 @@
+-- 9 Liste des communes ayant eu au moins 50 ventes au premier trimestre.
+select nom_commune as commune, count(id_vente) as nombre_de_vente from bien b 
+join vente v
+on id_bien = v.Id_Vente
+join commune c
+on b.Commune_Id_codedep_codecommune = c.id_codedep_codecommune
+where date_vente <= "2020-03-31"
+group by nom_commune
+having count(id_vente) >= 50
+order by nombre_de_vente desc

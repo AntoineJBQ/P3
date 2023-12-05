@@ -1,0 +1,7 @@
+--6 Liste des 10 appartements les plus chers avec la région et le nombre de mètres carrés.
+select Surface_carrez as Surface_m2, id_bien , Nom_region as region, Valeur from Bien 
+inner join Vente on Id_bien = Id_vente and Valeur is not null
+inner join Commune on Commune_Id_codedep_codecommune = Id_codedep_codecommune 
+inner join Region on region_Id_region = Id_region 
+order by Valeur DESC, Surface_carrez DESC 
+LIMIT 10;

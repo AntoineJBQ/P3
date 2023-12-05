@@ -1,0 +1,10 @@
+-- 12 Les 20 communes avec le plus de transactions pour 1000 habitants pour les communes qui dépassent les 10 000 habitants.
+select nom_commune as commune, round(count(Id_vente) * 1000.0 / nombre_dhabitant,2) AS transactions_pour_mille_habitants
+from Commune 
+left join Population  on Id_codedep_codecommune = id_population
+left join Bien b on Id_codedep_codecommune = Commune_Id_codedep_codecommune
+left join Vente v on id_bien = Id_vente
+where nombre_dhabitant > 10000
+group by Id_codedep_codecommune
+order by transactions_pour_mille_habitants DESC
+LIMIT 20;
